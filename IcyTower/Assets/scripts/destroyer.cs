@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class destroyer : MonoBehaviour {
 
-	public float lifeTime = 10f;
+	public float lifeTime = 3f;
 
 	// Update is called once per frame
 	void Update () {
@@ -16,7 +16,7 @@ public class destroyer : MonoBehaviour {
 			}
 		}
 
-		if (this.transform.position.y <= -20) {
+		if (this.transform.position.y <= 0) {
 			Destruction ();
 		}
 	}
@@ -25,9 +25,9 @@ public class destroyer : MonoBehaviour {
 		Destroy (this.gameObject);
 	}
 
-	void OnCollisionEnter(Collision coll){
-		if (coll.gameObject.name == "destroyer") {
-			Destruction ();
-		}
-	}
+//	void OnCollisionEnter(Collision coll){
+//		if (coll.gameObject.name == "destroyer") {
+//			Destruction ();
+//		}
+//	}
 }
