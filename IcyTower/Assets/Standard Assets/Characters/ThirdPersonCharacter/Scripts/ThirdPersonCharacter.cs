@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -28,8 +29,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
-
-
+		float rotation_time = 1.0f;
 		void Start()
 		{
 			m_Animator = GetComponent<Animator>();
@@ -43,6 +43,43 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 
+		void OnCollisionEnter(Collision collision) {
+			if (collision.gameObject.name == "Wall1" || collision.gameObject.name == "Wall2")
+			{
+				//transform.RotateAround (transform.position, Vector3.up,2*Time.deltaTime);
+//				Debug.Log("interaction");
+				StartCoroutine(RotateY(rotation_time));
+				//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.x+180.0f, transform.eulerAngles.z);
+
+			}
+		}
+
+		IEnumerator RotateY(float duration){
+			float startRotation = transform.eulerAngles.y;
+			float endRotation = startRotation + 180.0f;
+			float t = 0.0f;
+			while (t < duration) {
+				t += Time.deltaTime;
+				float yRotation = Mathf.Lerp (startRotation, endRotation, t / duration) % 360.0f;
+				transform.eulerAngles = new Vector3 (transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
+				yield return null;
+			}
+
+		}
+
+
+		IEnumerator RotateX(float duration){
+			float startRotation = transform.eulerAngles.x;
+			float endRotation = startRotation + 360.0f;
+			float t = 0.0f;
+			while (t < duration) {
+				t += Time.deltaTime;
+				float xRotation = Mathf.Lerp (startRotation, endRotation, t / duration) % 360.0f;
+				transform.eulerAngles = new Vector3 (xRotation, transform.eulerAngles.y, transform.eulerAngles.z);
+				yield return null;
+			}
+
+		}
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
 
