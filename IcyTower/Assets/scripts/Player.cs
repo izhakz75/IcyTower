@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 	void Update () {
 		if (maxPos < this.transform.position.y) {
 			maxPos = this.transform.position.y;
-			Debug.Log ("player max pos: " + maxPos.ToString ());
+//			Debug.Log ("player max pos: " + maxPos.ToString ());
 		}
 	}
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -16,6 +17,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
+		public Text Score;
 
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -30,6 +32,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 		float rotation_time = 1.0f;
+
+		int your_score = 0;
+
 		void Start()
 		{
 			m_Animator = GetComponent<Animator>();
@@ -52,7 +57,20 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.x+180.0f, transform.eulerAngles.z);
 
 			}
+				
+			if (collision.gameObject.name== "Plane") {
+				addScore(1); // add your own score
+				//Destroy(collision.gameObject);
+
+			}
 		}
+
+
+		void addScore(int points_to_add) {
+			your_score += points_to_add;
+			Score.text = "Score: " + your_score;
+		}
+
 
 		IEnumerator RotateY(float duration){
 			float startRotation = transform.eulerAngles.y;
