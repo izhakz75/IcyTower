@@ -8,9 +8,15 @@ public class spawner : MonoBehaviour {
 	public GameObject spawnee;
 	public float initCreationTime = 2f;
 	public float creationTime;
+	Vector3 tempPos;
 
 	void Start(){
-		creationTime = initCreationTime;
+//		creationTime = initCreationTime;
+		tempPos = spawnPos.position;
+		for (int i = 0; i < 100; i++) {
+			tempPos.y += 5;
+			Instantiate (spawnee, tempPos, spawnPos.rotation);
+		}
 	}
 	// Update is called once per frame
 	void Update () {
@@ -18,14 +24,14 @@ public class spawner : MonoBehaviour {
 //			Instantiate (spawnee, spawnPos.position, spawnPos.rotation);
 //		}
 
-		if (creationTime > 0) {
-			creationTime -= Time.deltaTime;
-
-			if (creationTime <= 0) {
-				Instantiate (spawnee, spawnPos.position, spawnPos.rotation);
-				creationTime = initCreationTime;
-			}
-
-		}
+//		if (creationTime > 0) {
+//			creationTime -= Time.deltaTime;
+//
+//			if (creationTime <= 0) {
+//				Instantiate (spawnee, spawnPos.position, spawnPos.rotation);
+//				creationTime = initCreationTime;
+//			}
+//
+//		}
 	}
 }
