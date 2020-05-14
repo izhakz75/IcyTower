@@ -22,12 +22,12 @@ public class detectCrossingUp : MonoBehaviour {
 			diffMaxPos = this.transform.position.y - maxViewPos;
 //			tempPos.y += diffMaxPos;
 			//cam.transform.up(diffMaxPos);
-			Debug.Log ("up crossing, cam pos: " + cam.transform.position.y.ToString ());
+			//Debug.Log ("up crossing, cam pos: " + cam.transform.position.y.ToString ());
 		}
 
-		Debug.Log ("cam pos: " + cam.transform.position.y.ToString ());
-		Debug.Log ("max pos: " + maxViewPos.ToString ());
-		Debug.Log ("player pos: " + this.transform.position.y.ToString ());
+		//Debug.Log ("cam pos: " + cam.transform.position.y.ToString ());
+		//Debug.Log ("max pos: " + maxViewPos.ToString ());
+		//Debug.Log ("player pos: " + this.transform.position.y.ToString ());
 	}
 
 	void OnTriggerEnter(){
