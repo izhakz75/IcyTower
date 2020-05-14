@@ -30,21 +30,6 @@ public class spawner : MonoBehaviour {
 		}
 	}
 
-
-	void OnCollisionEnter (Collision c) {
-		Debug.Log(c.gameObject.name);
-		if (c.gameObject.name== "Cube (1)") {
-		//	addScore("your_score", 10); // add your own score
-			Debug.Log("interaction");
-			Destroy(c.gameObject);
-
-		}
-	}
-
-	void addScore(string variable_name, int points_to_add) {
-		//PlayerPrefs.SetInt(variable_name, PlayerPrefs.GetInt(variable_name) + points_to_add);
-	}
-
 	// Update is called once per frame
 	void Update () {
 //		if (Input.GetMouseButton (0)) {
