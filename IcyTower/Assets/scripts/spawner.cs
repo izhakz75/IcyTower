@@ -8,7 +8,7 @@ public class spawner : MonoBehaviour {
 	public GameObject spawnee;
 	public float initCreationTime = 2f;
 	public float creationTime;
-	Vector3 tempPos, tempScale;
+	Vector3 tempPos, tempScale, lastTempPos = new Vector3(0,0,0);
 	int your_score = 0;
 
 	void Start(){
@@ -17,9 +17,16 @@ public class spawner : MonoBehaviour {
 		for (int i = 0; i < 100; i++) {
 			tempPos.y += 5;
 			tempPos.x = Random.Range (-15, 10); 
+			if (tempPos.x < lastTempPos.x - 5.0f) {
+				tempPos.x = lastTempPos.x - 5.0f;
+			}
+			else if (tempPos.x > lastTempPos.x + 5.0f) {
+				tempPos.x = lastTempPos.x + 5.0f;
+			}
 			spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,5); 
 
 			Instantiate (spawnee, tempPos, spawnPos.rotation);
+			lastTempPos = tempPos;
 		}
 	}
 
