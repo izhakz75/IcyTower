@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class cameraPos : MonoBehaviour {
 
-	public Player player;
+	public Ball player;
 	Vector3 tempPos;
 
 	void Start(){
