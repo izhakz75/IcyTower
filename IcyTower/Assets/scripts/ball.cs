@@ -10,8 +10,9 @@ public class Ball : MonoBehaviour {
 	private Scene scene;
 
 	public float speed = 2f;
-	public float jumpForce = 20f;
+	public float jumpForce = 10f;
 	private Rigidbody ball;
+	private bool onGround = false;
 	// Use this for initialization
 	void Start () {
 		ball = GetComponent<Rigidbody> ();
@@ -27,8 +28,9 @@ public class Ball : MonoBehaviour {
 		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 		ball.AddForce (speed*movement);
 
-		if (Input.GetButtonDown ("Jump") ) {
+		if (Input.GetButtonDown ("Jump") && onGround) {
 			ball.AddForce (Vector3.up*jumpForce, ForceMode.Impulse);
+			onGround = false;
 		}
 
 		if (maxPos < this.transform.position.y) 	// detect player reach new height
@@ -53,4 +55,11 @@ public class Ball : MonoBehaviour {
 		return minPos;
 	}
 
+	void OnCollisionStay(Collision col)
+	{
+		if (col.transform.tag == "cube") {
+			onGround = true;
+			Debug.Log ("on ground");
+		}	
+	}
 }
