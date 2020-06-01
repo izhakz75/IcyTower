@@ -20,7 +20,7 @@ public class Ball : MonoBehaviour {
 		minPos = 0f;
 		scene = SceneManager.GetActiveScene ();
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		float movemHor = Input.GetAxis ("Horizontal");
