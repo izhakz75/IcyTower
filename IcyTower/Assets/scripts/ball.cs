@@ -27,10 +27,10 @@ public class Ball : MonoBehaviour {
 		float moveVer = Input.GetAxis ("Vertical");
 		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 		ball.AddForce (speed*movement);
-
 		if (Input.GetButtonDown ("Jump") && onGround) {
-			ball.AddForce (Vector3.up*jumpForce, ForceMode.Impulse);
+			//ball.AddForce (Vector3.up*jumpForce, ForceMode.Impulse);
 			onGround = false;
+			ball.velocity = new Vector3(0, 10, 0);
 		}
 
 		if (maxPos < this.transform.position.y) 	// detect player reach new height
@@ -57,9 +57,9 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionStay(Collision col)
 	{
-		if (col.transform.tag == "cube") {
+		if (col.transform.tag == "cube" || col.gameObject.name == "Plane") {
 			onGround = true;
-			Debug.Log ("on ground");
+			//Debug.Log ("on ground");
 		}	
 	}
 }
