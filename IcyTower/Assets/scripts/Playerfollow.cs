@@ -6,7 +6,7 @@ public class Playerfollow : MonoBehaviour {
 
 	public Transform PlayerTransform;
 	private Vector3 _cameraOffset;
-	[Range(0.01f,1.0f)]
+	//[Range(0.01f,1.0f)]
 	public float smoothFactor = 0.5f;
 
 	public bool LookAtPlayer = false;
@@ -18,6 +18,7 @@ public class Playerfollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 newPos = PlayerTransform.position + _cameraOffset;
+		newPos += new Vector3 (0f, -5f, 5f);
 		transform.position = Vector3.Slerp (transform.position, newPos, smoothFactor);
 		if (LookAtPlayer) {
 			transform.LookAt (PlayerTransform);

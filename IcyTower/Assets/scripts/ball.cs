@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour {
 		scene = SceneManager.GetActiveScene ();
 		ballRenderer = this.GetComponent<Renderer> ();
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		
@@ -38,6 +38,11 @@ public class Ball : MonoBehaviour {
 		float moveVer = Input.GetAxis ("Vertical");
 		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 		ball.AddForce (speed*movement);
+		if (Input.GetButtonDown ("Jump") && onGround) {
+			//ball.AddForce (Vector3.up*jumpForce, ForceMode.Impulse);
+			onGround = false;
+			ball.velocity = new Vector3(0, 10, 0);
+		}
 
 		if (maxPos < this.transform.position.y) 	// detect player reach new height
 		{
@@ -65,10 +70,9 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionEnter(Collision coll)
 	{
-		if (coll.transform.tag == "cube") {
+		if (col.transform.tag == "cube" || col.gameObject.name == "Plane") {
 			onGround = true;
-			Debug.Log ("on ground");
-			ballRenderer.material.SetColor ("_SpecColor", Color.red);
+			//Debug.Log ("on ground");
 		}	
 	}
 }

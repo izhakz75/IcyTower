@@ -13,9 +13,13 @@ public class spawner : MonoBehaviour {
 
 	void Start(){
 //		creationTime = initCreationTime;
-		tempPos = spawnPos.position - new Vector3(0,3,0);
+		//Vector3[]  locations= {new Vector3(-5,1,5),new Vector3(5,1,5),new Vector3(0,1,0),new Vector3(0,1,10)};
+		tempPos = spawnPos.position - new Vector3(0,0,0);
 		for (int i = 0; i < 100; i++) {
 			tempPos.y += 5;
+			//Vector3 newPos = locations [Random.Range (0, 4)];
+			//newPos.y = tempPos.y;
+			//tempPos = newPos;
 			tempPos.x = Random.Range (-15, 10); 
 			if (tempPos.x < lastTempPos.x - 5.0f) {
 				tempPos.x = lastTempPos.x - 5.0f;
@@ -23,6 +27,16 @@ public class spawner : MonoBehaviour {
 			else if (tempPos.x > lastTempPos.x + 5.0f) {
 				tempPos.x = lastTempPos.x + 5.0f;
 			}
+
+			tempPos.z = Random.Range (-10, 10); 
+			if (tempPos.z < lastTempPos.z - 3.0f) {
+				tempPos.z = lastTempPos.z - 3.0f;
+			}
+			else if (tempPos.z > lastTempPos.z + 3.0f) {
+				tempPos.z = lastTempPos.z + 3.0f;
+			}
+
+			//tempPos.z = Random.Range (-5, 5); 
 			spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,5); 
 
 			Instantiate (spawnee, tempPos, spawnPos.rotation);
