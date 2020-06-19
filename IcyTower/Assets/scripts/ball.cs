@@ -13,25 +13,31 @@ public class Ball : MonoBehaviour {
 	public float jumpForce = 10f;
 	private Rigidbody ball;
 	private bool onGround = false;
+	private Renderer ballRenderer;
+	Color ballCol = Color.red;
 	// Use this for initialization
 	void Start () {
 		ball = GetComponent<Rigidbody> ();
 		maxPos = 7f;
 		minPos = 0f;
 		scene = SceneManager.GetActiveScene ();
+		ballRenderer = this.GetComponent<Renderer> ();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		
+		if (onGround){
+			if (Input.GetButtonDown ("Jump")) {
+				ball.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
+				onGround = false;
+			}
+		
+		}
 		float movemHor = Input.GetAxis ("Horizontal");
 		float moveVer = Input.GetAxis ("Vertical");
 		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 		ball.AddForce (speed*movement);
-
-		if (Input.GetButtonDown ("Jump") && onGround) {
-			ball.AddForce (Vector3.up*jumpForce, ForceMode.Impulse);
-			onGround = false;
-		}
 
 		if (maxPos < this.transform.position.y) 	// detect player reach new height
 		{
@@ -44,8 +50,10 @@ public class Ball : MonoBehaviour {
 		{
 			Debug.Log ("game over");
 			Application.LoadLevel (scene.name);     // restart the game whene the player is falling
+			Debug.ClearDeveloperConsole ();
 		}
 	}
+
 
 	public float GetMaxPos(){
 		return maxPos;
@@ -55,11 +63,12 @@ public class Ball : MonoBehaviour {
 		return minPos;
 	}
 
-	void OnCollisionStay(Collision col)
+	void OnCollisionEnter(Collision coll)
 	{
-		if (col.transform.tag == "cube") {
+		if (coll.transform.tag == "cube") {
 			onGround = true;
 			Debug.Log ("on ground");
+			ballRenderer.material.SetColor ("_SpecColor", Color.red);
 		}	
 	}
 }
