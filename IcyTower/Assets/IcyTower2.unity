@@ -510,6 +510,9 @@ MonoBehaviour:
   PlayerTransform: {fileID: 1393948575}
   smoothFactor: 0.912
   LookAtPlayer: 1
+  distAway: 4
+  distUp: 2
+  smooth: 3
 --- !u!1 &501212809
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +602,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &996592569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 996592570}
+  m_Layer: 0
+  m_Name: follow
+  m_TagString: Ball
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &996592570
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996592569}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1393948575}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1075008400
 Prefab:
@@ -1043,6 +1074,10 @@ Prefab:
     - target: {fileID: 1847002287683534, guid: 755fdd636e0d6594394808aa0742729c, type: 2}
       propertyPath: m_Name
       value: ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847002287683534, guid: 755fdd636e0d6594394808aa0742729c, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114019409183948730, guid: 755fdd636e0d6594394808aa0742729c, type: 2}
