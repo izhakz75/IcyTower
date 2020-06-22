@@ -7,6 +7,7 @@ public class Playerfollow : MonoBehaviour {
 	public Transform PlayerTransform;
 	private Vector3 _cameraOffset;
 	private Vector3 camPos;
+	private Vector3 ballPlanarDir = new Vector3 ();
 	//[Range(0.01f,1.0f)]
 	public float smoothFactor = 0.5f;
 	[SerializeField] private Ball ball;
@@ -32,7 +33,13 @@ public class Playerfollow : MonoBehaviour {
 	}
 
 	void LateUpdate(){
-		camPos = follow.position + Vector3.up * distUp + -distAway*ball.GetForwardDir ();
+		if (ball.GetForwardDir ().y == 0f) {
+			camPos = follow.position + Vector3.up * distUp + -distAway * ball.GetForwardDir ();
+		}else{
+			ballPlanarDir = ball.GetForwardDir ();
+			ballPlanarDir.y = 0f;
+			camPos = follow.position + Vector3.up * distUp + -distAway * ballPlanarDir;
+		}
 		transform.position = Vector3.Lerp (transform.position, camPos, Time.deltaTime * smooth);
 		transform.LookAt (follow);
 	}

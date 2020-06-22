@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour {
 	private Scene scene;
 
 	[SerializeField] private float force = 2f;
-	public float jumpForce = 10f;
+	public float jumpSpeed = 10f;
 	private Rigidbody ball;
 	private bool onGround = false;
 	private Renderer ballRenderer;
@@ -18,6 +18,7 @@ public class Ball : MonoBehaviour {
 	private Vector3 forwardDir;
 	private Vector3 leftDir;
 	private Vector3 rightDir;
+	private bool isBackward = false;
 	// Use this for initialization
 	void Start () {
 		ball = GetComponent<Rigidbody> ();
@@ -45,8 +46,16 @@ public class Ball : MonoBehaviour {
 //		float moveVer = Input.GetAxis ("Vertical");
 //		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 //		ball.AddForce (speed*movement);
+
+		isBackward = false;
+
 		if (ball.velocity.magnitude != 0f) {
-			forwardDir = Vector3.Normalize (ball.velocity);
+			if (!isBackward) {
+				forwardDir = Vector3.Normalize (ball.velocity);
+			}else{
+				forwardDir = -1f*Vector3.Normalize (ball.velocity);
+			}
+
 			leftDir = Vector3.Cross (forwardDir, Vector3.up);
 			rightDir = -1f * leftDir;
 			Debug.Log (ball.velocity.magnitude.ToString ());
@@ -59,6 +68,7 @@ public class Ball : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.DownArrow)) {
 			ball.AddForce (-force * (forwardDir));
+			isBackward = true;
 			Debug.Log ("down key is pressed");
 		}
 
@@ -76,7 +86,7 @@ public class Ball : MonoBehaviour {
 		if (Input.GetButtonDown ("Jump") && onGround) {
 			//ball.AddForce (Vector3.up*jumpForce, ForceMode.Impulse);
 			onGround = false;
-			ball.velocity = new Vector3(0, 10, 0);
+			ball.velocity += new Vector3(0, jumpSpeed, 0);
 		}
 
 		if (maxPos < this.transform.position.y) 	// detect player reach new height
