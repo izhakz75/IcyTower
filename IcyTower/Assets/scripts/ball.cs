@@ -16,6 +16,7 @@ public class Ball : MonoBehaviour {
 	private Renderer ballRenderer;
 	Color ballCol = Color.red;
 	private Vector3 forwardDir;
+	private Vector3 backwardDir;
 	private Vector3 leftDir;
 	private Vector3 rightDir;
 	private bool isBackward = false;
@@ -26,10 +27,12 @@ public class Ball : MonoBehaviour {
 		minPos = 0f;
 		scene = SceneManager.GetActiveScene ();
 		ballRenderer = this.GetComponent<Renderer> ();
-		forwardDir = new Vector3(1,0,0);
-		rightDir = new Vector3(0,0,-1);
-		leftDir = new Vector3(0,0,1);
+		forwardDir = new Vector3 (1, 0, 0);
+		backwardDir = new Vector3 (-1, 0, 0);
+		rightDir = new Vector3 (0, 0, -1);
+		leftDir = new Vector3 (0, 0, 1);
 		ball.velocity = Vector3.zero;
+		isBackward = false;
 	}
 
 	// Update is called once per frame
@@ -47,40 +50,49 @@ public class Ball : MonoBehaviour {
 //		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 //		ball.AddForce (speed*movement);
 
-		isBackward = false;
+
 
 		if (ball.velocity.magnitude != 0f) {
-			if (!isBackward) {
-				forwardDir = Vector3.Normalize (ball.velocity);
-			}else{
-				forwardDir = -1f*Vector3.Normalize (ball.velocity);
-			}
-
+			forwardDir = Vector3.Normalize (ball.velocity);
+			forwardDir.y = 0;
+			backwardDir = -1f * forwardDir;
 			leftDir = Vector3.Cross (forwardDir, Vector3.up);
 			rightDir = -1f * leftDir;
-			Debug.Log (ball.velocity.magnitude.ToString ());
+
+//			Debug.Log (ball.velocity.magnitude.ToString ());
 		}
 			
 		if (Input.GetKey (KeyCode.UpArrow)) {
 			ball.AddForce (force * (forwardDir));
-			Debug.Log ("up key is pressed");
+			isBackward = false;
+//			Debug.Log ("up key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			ball.AddForce (-force * (forwardDir));
-			isBackward = true;
-			Debug.Log ("down key is pressed");
+//			if (ball.velocity.magnitude > 0.1f) {
+//				ball.AddForce (-force * (forwardDir));
+//			}
+			if (!isBackward) {
+				ball.AddForce (-force * (forwardDir));
+			}else{
+				ball.AddForce (force * (forwardDir));
+			}
+
+			if (ball.velocity.magnitude == 0f) {
+				isBackward = true;
+			}
+//			Debug.Log ("down key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			ball.AddForce (force * (rightDir));
-			Debug.Log ("right key is pressed");
+//			Debug.Log ("right key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			ball.AddForce (force * (leftDir));
-			Debug.Log ("left key is pressed");
-			Debug.Log (forwardDir.ToString ());
+//			Debug.Log ("left key is pressed");
+//			Debug.Log (forwardDir.ToString ());
 		}
 
 		if (Input.GetButtonDown ("Jump") && onGround) {
@@ -106,6 +118,7 @@ public class Ball : MonoBehaviour {
 		Debug.DrawRay (transform.position, forwardDir, Color.red);
 		Debug.DrawRay (transform.position, rightDir, Color.blue);
 		Debug.DrawRay (transform.position, leftDir, Color.yellow);
+		Debug.Log ("is backward = " + isBackward.ToString ());
 	}
 
 

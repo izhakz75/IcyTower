@@ -36,7 +36,7 @@ public class Playerfollow : MonoBehaviour {
 		if (ball.GetForwardDir ().y == 0f) {
 			camPos = follow.position + Vector3.up * distUp + -distAway * ball.GetForwardDir ();
 		}else{
-			ballPlanarDir = ball.GetForwardDir ();
+			ballPlanarDir = ball.GetForwardDir ();			
 			ballPlanarDir.y = 0f;
 			camPos = follow.position + Vector3.up * distUp + -distAway * ballPlanarDir;
 		}

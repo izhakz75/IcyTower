@@ -10,30 +10,32 @@ public class spawner : MonoBehaviour {
 	public float creationTime;
 	Vector3 tempPos, tempScale, lastTempPos = new Vector3(0,0,0);
 	int your_score = 0;
+	[SerializeField] private float floorsMeanDist = 5f;
+	[SerializeField] private float floorsHeightDist = 5f;
 
 	void Start(){
 //		creationTime = initCreationTime;
 		//Vector3[]  locations= {new Vector3(-5,1,5),new Vector3(5,1,5),new Vector3(0,1,0),new Vector3(0,1,10)};
 		tempPos = spawnPos.position - new Vector3(0,0,0);
-		for (int i = 0; i < 100; i++) {
-			tempPos.y += 5;
+		for (int i = 0; i < 20; i++) {
+			tempPos.y += floorsHeightDist;
 			//Vector3 newPos = locations [Random.Range (0, 4)];
 			//newPos.y = tempPos.y;
 			//tempPos = newPos;
 			tempPos.x = Random.Range (-15, 10); 
-			if (tempPos.x < lastTempPos.x - 5.0f) {
-				tempPos.x = lastTempPos.x - 5.0f;
+			if (tempPos.x < lastTempPos.x - floorsMeanDist) {
+				tempPos.x = lastTempPos.x - floorsMeanDist;
 			}
-			else if (tempPos.x > lastTempPos.x + 5.0f) {
-				tempPos.x = lastTempPos.x + 5.0f;
+			else if (tempPos.x > lastTempPos.x + floorsMeanDist) {
+				tempPos.x = lastTempPos.x + floorsMeanDist;
 			}
 
 			tempPos.z = Random.Range (-10, 10); 
-			if (tempPos.z < lastTempPos.z - 3.0f) {
-				tempPos.z = lastTempPos.z - 3.0f;
+			if (tempPos.z < lastTempPos.z - floorsMeanDist) {
+				tempPos.z = lastTempPos.z - floorsMeanDist;
 			}
-			else if (tempPos.z > lastTempPos.z + 3.0f) {
-				tempPos.z = lastTempPos.z + 3.0f;
+			else if (tempPos.z > lastTempPos.z + floorsMeanDist) {
+				tempPos.z = lastTempPos.z + floorsMeanDist;
 			}
 
 			//tempPos.z = Random.Range (-5, 5); 
