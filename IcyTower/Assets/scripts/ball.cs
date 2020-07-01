@@ -50,7 +50,7 @@ public class Ball : MonoBehaviour {
 //		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
 //		ball.AddForce (speed*movement);
 
-
+		isBackward = Vector3.Dot (forwardDir, ball.velocity) < 0;
 
 		if (ball.velocity.magnitude != 0f) {
 			forwardDir = Vector3.Normalize (ball.velocity);
@@ -59,29 +59,24 @@ public class Ball : MonoBehaviour {
 			leftDir = Vector3.Cross (forwardDir, Vector3.up);
 			rightDir = -1f * leftDir;
 
+			if (isBackward) {
+				forwardDir = -1f * forwardDir;
+				backwardDir = -1f * backwardDir;
+				leftDir = -1f * leftDir;
+				rightDir = -1f * rightDir;
+			}
 //			Debug.Log (ball.velocity.magnitude.ToString ());
 		}
 			
 		if (Input.GetKey (KeyCode.UpArrow)) {
 			ball.AddForce (force * (forwardDir));
-			isBackward = false;
+
 //			Debug.Log ("up key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.DownArrow)) {
-//			if (ball.velocity.magnitude > 0.1f) {
-//				ball.AddForce (-force * (forwardDir));
-//			}
-			if (!isBackward) {
-				ball.AddForce (-force * (forwardDir));
-			}else{
-				ball.AddForce (force * (forwardDir));
-			}
-
-			if (ball.velocity.magnitude == 0f) {
-				isBackward = true;
-			}
-//			Debug.Log ("down key is pressed");
+			ball.AddForce (force * (backwardDir));
+//			Debug.Log ("right key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.RightArrow)) {
