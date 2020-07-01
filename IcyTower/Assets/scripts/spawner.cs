@@ -6,6 +6,7 @@ public class spawner : MonoBehaviour {
 
 	public Transform spawnPos;
 	public GameObject spawnee;
+	public GameObject coin;
 	public float initCreationTime = 2f;
 	public float creationTime;
 	Vector3 tempPos, tempScale, lastTempPos = new Vector3(0,0,0);
@@ -42,6 +43,11 @@ public class spawner : MonoBehaviour {
 			spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,5); 
 
 			Instantiate (spawnee, tempPos, spawnPos.rotation);
+			int rand = Random.Range (0, 3);
+			if (rand == 1) {
+				Vector3 pos = tempPos + new Vector3 (0, 1, 0);
+				Instantiate (coin, pos, spawnPos.rotation);
+			}
 			lastTempPos = tempPos;
 		}
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Ball : MonoBehaviour {
 
@@ -20,6 +21,9 @@ public class Ball : MonoBehaviour {
 	private Vector3 leftDir;
 	private Vector3 rightDir;
 	private bool isBackward = false;
+	public Text Score;
+	int your_score = 0;
+	float yPos = 5;
 	// Use this for initialization
 	void Start () {
 		ball = GetComponent<Rigidbody> ();
@@ -37,18 +41,18 @@ public class Ball : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
-//		if (onGround){
-//			if (Input.GetButtonDown ("Jump")) {
-//				ball.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
-//				onGround = false;
-//			}
-//		
-//		}
-//		float movemHor = Input.GetAxis ("Horizontal");
-//		float moveVer = Input.GetAxis ("Vertical");
-//		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
-//		ball.AddForce (speed*movement);
+
+		//		if (onGround){
+		//			if (Input.GetButtonDown ("Jump")) {
+		//				ball.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
+		//				onGround = false;
+		//			}
+		//		
+		//		}
+		//		float movemHor = Input.GetAxis ("Horizontal");
+		//		float moveVer = Input.GetAxis ("Vertical");
+		//		Vector3 movement = new Vector3 (movemHor, 0, moveVer);
+		//		ball.AddForce (speed*movement);
 
 
 
@@ -59,19 +63,19 @@ public class Ball : MonoBehaviour {
 			leftDir = Vector3.Cross (forwardDir, Vector3.up);
 			rightDir = -1f * leftDir;
 
-//			Debug.Log (ball.velocity.magnitude.ToString ());
+			//			Debug.Log (ball.velocity.magnitude.ToString ());
 		}
-			
+
 		if (Input.GetKey (KeyCode.UpArrow)) {
 			ball.AddForce (force * (forwardDir));
 			isBackward = false;
-//			Debug.Log ("up key is pressed");
+			//			Debug.Log ("up key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.DownArrow)) {
-//			if (ball.velocity.magnitude > 0.1f) {
-//				ball.AddForce (-force * (forwardDir));
-//			}
+			//			if (ball.velocity.magnitude > 0.1f) {
+			//				ball.AddForce (-force * (forwardDir));
+			//			}
 			if (!isBackward) {
 				ball.AddForce (-force * (forwardDir));
 			}else{
@@ -81,18 +85,18 @@ public class Ball : MonoBehaviour {
 			if (ball.velocity.magnitude == 0f) {
 				isBackward = true;
 			}
-//			Debug.Log ("down key is pressed");
+			//			Debug.Log ("down key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			ball.AddForce (force * (rightDir));
-//			Debug.Log ("right key is pressed");
+			//			Debug.Log ("right key is pressed");
 		}
 
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			ball.AddForce (force * (leftDir));
-//			Debug.Log ("left key is pressed");
-//			Debug.Log (forwardDir.ToString ());
+			//			Debug.Log ("left key is pressed");
+			//			Debug.Log (forwardDir.ToString ());
 		}
 
 		if (Input.GetButtonDown ("Jump") && onGround) {
@@ -114,11 +118,10 @@ public class Ball : MonoBehaviour {
 			Application.LoadLevel (scene.name);     // restart the game whene the player is falling
 			Debug.ClearDeveloperConsole ();
 		}
-
 		Debug.DrawRay (transform.position, forwardDir, Color.red);
 		Debug.DrawRay (transform.position, rightDir, Color.blue);
 		Debug.DrawRay (transform.position, leftDir, Color.yellow);
-		Debug.Log ("is backward = " + isBackward.ToString ());
+		//Debug.Log ("is backward = " + isBackward.ToString ());
 	}
 
 
@@ -134,11 +137,24 @@ public class Ball : MonoBehaviour {
 	{
 		if (coll.transform.tag == "cube" || coll.gameObject.name == "Plane") {
 			onGround = true;
-			//Debug.Log ("on ground");
-		}	
+			if (this.transform.position.y > yPos) {
+				addScore (1);// add your own score
+				yPos += 5;
+				//Destroy(coll.gameObject);
+			}
+		}
+		if (coll.transform.tag == "coin") {
+			Destroy(coll.gameObject);
+			addScore (1);
+		}
 	}
 
 	public Vector3 GetForwardDir(){
 		return forwardDir;
+	}
+
+	void addScore(int points_to_add) {
+		your_score += points_to_add;
+		Score.text = "Score: " + your_score;
 	}
 }
