@@ -142,6 +142,10 @@ public class Ball : MonoBehaviour {
 			Destroy(coll.gameObject);
 			addScore (1);
 		}
+
+		if (coll.transform.tag == "wall") {
+			forwardDir = -1f * forwardDir;
+		}
 	}
 
 	public Vector3 GetForwardDir(){
