@@ -23,26 +23,28 @@ public class spawner : MonoBehaviour {
 			//Vector3 newPos = locations [Random.Range (0, 4)];
 			//newPos.y = tempPos.y;
 			//tempPos = newPos;
-			tempPos.x = Random.Range (-15, 10); 
-			if (tempPos.x < lastTempPos.x - floorsMeanDist) {
+			spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,(Random.Range (5, 11))); 
+			tempPos.x = Random.Range (-11, 11); 
+			/*if (tempPos.x < lastTempPos.x - floorsMeanDist) {
 				tempPos.x = lastTempPos.x - floorsMeanDist;
 			}
 			else if (tempPos.x > lastTempPos.x + floorsMeanDist) {
 				tempPos.x = lastTempPos.x + floorsMeanDist;
-			}
+			}*/
 
-			tempPos.z = Random.Range (-10, 10); 
-			if (tempPos.z < lastTempPos.z - floorsMeanDist) {
+			tempPos.z = Random.Range (-6, 6); 
+			/*if (tempPos.z < lastTempPos.z - floorsMeanDist) {
 				tempPos.z = lastTempPos.z - floorsMeanDist;
 			}
 			else if (tempPos.z > lastTempPos.z + floorsMeanDist) {
 				tempPos.z = lastTempPos.z + floorsMeanDist;
-			}
+			}*/
 
 			//tempPos.z = Random.Range (-5, 5); 
-			spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,5); 
+			//spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,(Random.Range (5, 11))); 
 
 			Instantiate (spawnee, tempPos, spawnPos.rotation);
+			//Random coins
 			int rand = Random.Range (0, 3);
 			if (rand == 1) {
 				Vector3 pos = tempPos + new Vector3 (0, 1, 0);
