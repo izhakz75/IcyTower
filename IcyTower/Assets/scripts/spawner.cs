@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class spawner : MonoBehaviour {
 
 	public Transform spawnPos;
 	public GameObject spawnee;
 	public GameObject coin;
+	public Material level2;
 	public float initCreationTime = 2f;
 	public float creationTime;
 	Vector3 tempPos, tempScale, lastTempPos = new Vector3(0,0,0);
 	int your_score = 0;
+
 	[SerializeField] private float floorsMeanDist = 5f;
 	[SerializeField] private float floorsHeightDist = 5f;
 
@@ -18,31 +21,24 @@ public class spawner : MonoBehaviour {
 //		creationTime = initCreationTime;
 		//Vector3[]  locations= {new Vector3(-5,1,5),new Vector3(5,1,5),new Vector3(0,1,0),new Vector3(0,1,10)};
 		tempPos = spawnPos.position - new Vector3(0,0,0);
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 200; i++) {
 			tempPos.y += floorsHeightDist;
-			//Vector3 newPos = locations [Random.Range (0, 4)];
-			//newPos.y = tempPos.y;
-			//tempPos = newPos;
-			spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,(Random.Range (5, 11))); 
-			tempPos.x = Random.Range (-11, 11); 
-			/*if (tempPos.x < lastTempPos.x - floorsMeanDist) {
-				tempPos.x = lastTempPos.x - floorsMeanDist;
+			spawnee.transform.localScale = new Vector3(Random.Range (7, 16),1,(Random.Range (7, 16))); 
+			tempPos.x = Random.Range (-16, 16); 
+			tempPos.z = Random.Range (-16, 16); 
+			if (i >= 2) {
+			spawnee.transform.GetComponent<Renderer> ().material = level2;
 			}
-			else if (tempPos.x > lastTempPos.x + floorsMeanDist) {
-				tempPos.x = lastTempPos.x + floorsMeanDist;
-			}*/
 
-			tempPos.z = Random.Range (-6, 6); 
-			/*if (tempPos.z < lastTempPos.z - floorsMeanDist) {
-				tempPos.z = lastTempPos.z - floorsMeanDist;
-			}
-			else if (tempPos.z > lastTempPos.z + floorsMeanDist) {
-				tempPos.z = lastTempPos.z + floorsMeanDist;
-			}*/
+			GameObject text = new GameObject();
+			TextMesh t = text.AddComponent<TextMesh>();
+			string s = (i+1).ToString ();
+			t.text = s;
+			t.fontSize = 5;
+			t.transform.position = tempPos;
+			//text.transform.SetParent(spawnee.transform, false);
 
-			//tempPos.z = Random.Range (-5, 5); 
-			//spawnee.transform.localScale = new Vector3(Random.Range (5, 11),1,(Random.Range (5, 11))); 
-
+			//spawnee.transform.GetComponent<Renderer> ().material = level2;
 			Instantiate (spawnee, tempPos, spawnPos.rotation);
 			//Random coins
 			int rand = Random.Range (0, 3);

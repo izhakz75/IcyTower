@@ -9,7 +9,6 @@ public class Ball : MonoBehaviour {
 	float maxPos;
 	float minPos;
 	private Scene scene;
-
 	[SerializeField] private float force = 2f;
 	public float jumpSpeed = 10f;
 	private Rigidbody ball;
