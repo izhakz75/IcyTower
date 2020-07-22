@@ -34,7 +34,7 @@ public class spawner : MonoBehaviour {
 			TextMesh t = text.AddComponent<TextMesh>();
 			string s = (i+1).ToString ();
 			t.text = s;
-			t.fontSize = 5;
+			t.fontSize = 10;
 			t.transform.position = tempPos;
 			//text.transform.SetParent(spawnee.transform, false);
 
