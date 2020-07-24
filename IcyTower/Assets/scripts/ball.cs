@@ -143,6 +143,7 @@ public class Ball : MonoBehaviour {
 		}
 
 		if (coll.transform.tag == "wall") {
+			ball.velocity += new Vector3(0, jumpSpeed, 0);
 			forwardDir = -1f * forwardDir;
 		}
 	}
