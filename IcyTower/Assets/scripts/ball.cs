@@ -23,6 +23,8 @@ public class Ball : MonoBehaviour {
 	public Text Score;
 	int your_score = 0;
 	float yPos = 5;
+	float sequence = 0;
+	float lastYpos = 5;
 	// Use this for initialization
 	void Start () {
 		ball = GetComponent<Rigidbody> ();
@@ -108,7 +110,8 @@ public class Ball : MonoBehaviour {
 
 		if (this.transform.position.y < minPos) 	// detect falling
 		{
-			Debug.Log ("game over");
+			Debug.Log ("Game Over");
+			Debug.Log ("Your Score:" + your_score);
 			Application.LoadLevel (scene.name);     // restart the game whene the player is falling
 			Debug.ClearDeveloperConsole ();
 		}
@@ -129,12 +132,26 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionEnter(Collision coll)
 	{
+		//combo 
 		if (coll.transform.tag == "cube" || coll.gameObject.name == "Plane") {
 			onGround = true;
 			if (this.transform.position.y > yPos) {
-				addScore (1);// add your own score
-				yPos += 5;
-				//Destroy(coll.gameObject);
+				if (this.transform.position.y > yPos + 5) {
+					sequence = Mathf.Ceil((this.transform.position.y - yPos)/5)+1;
+					//addScore (sequence*5);
+					lastYpos += 5;
+					Debug.Log ("sequence = "+sequence);
+				}else{
+					addScore (1);// add your own score
+					if (sequence != 0) {
+						sequence = 0;
+						yPos += lastYpos;
+						lastYpos = 0;
+					}else{
+						yPos += 5;
+					}
+					//Destroy(coll.gameObject);
+				}
 			}
 		}
 		if (coll.transform.tag == "coin") {

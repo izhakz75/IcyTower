@@ -9,11 +9,16 @@ public class spawner : MonoBehaviour {
 	public GameObject spawnee;
 	public GameObject coin;
 	public Material level2;
+	public Material level3;
+	public Material level4;
+	public Material level5;
 	public float initCreationTime = 2f;
 	public float creationTime;
 	Vector3 tempPos, tempScale, lastTempPos = new Vector3(0,0,0);
-	int your_score = 0;
-
+	public int level2floor = 1;
+	public int level3floor = 2;
+	public int level4floor = 3;
+	public int level5floor = 4;
 	[SerializeField] private float floorsMeanDist = 5f;
 	[SerializeField] private float floorsHeightDist = 5f;
 
@@ -26,8 +31,21 @@ public class spawner : MonoBehaviour {
 			spawnee.transform.localScale = new Vector3(Random.Range (7, 16),1,(Random.Range (7, 16))); 
 			tempPos.x = Random.Range (-16, 16); 
 			tempPos.z = Random.Range (-16, 16); 
-			if (i >= 2) {
-			spawnee.transform.GetComponent<Renderer> ().material = level2;
+			if (i >= level2floor-1) {
+				spawnee.transform.localScale = new Vector3(Random.Range (7, 14),1,(Random.Range (7, 14))); 
+				spawnee.transform.GetComponent<Renderer> ().material = level2;
+			}
+			if (i >= level3floor-1) {
+				spawnee.transform.localScale = new Vector3(Random.Range (7, 12),1,(Random.Range (7, 12))); 
+				spawnee.transform.GetComponent<Renderer> ().material = level3;
+			}
+			if (i >= level4floor-1) {
+				spawnee.transform.localScale = new Vector3(Random.Range (7, 10),1,(Random.Range (7, 10))); 
+				spawnee.transform.GetComponent<Renderer> ().material = level4;
+			}
+			if (i >= level5floor-1) {
+				spawnee.transform.localScale = new Vector3(Random.Range (7, 8),1,(Random.Range (7, 8))); 
+				spawnee.transform.GetComponent<Renderer> ().material = level5;
 			}
 
 			GameObject text = new GameObject();

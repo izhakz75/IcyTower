@@ -420,8 +420,15 @@ MonoBehaviour:
   spawnee: {fileID: 727610631}
   coin: {fileID: 1464700919998548, guid: 3fc7474f8b6499d459f01aab727182be, type: 2}
   level2: {fileID: 2100000, guid: 9ea4d2a96ce85a8478f896a77944ef39, type: 2}
+  level3: {fileID: 2100000, guid: 4647fc269d58aae45923e89bff8e8dc7, type: 2}
+  level4: {fileID: 2100000, guid: fecfa35ff197f75478f06a28f6da7cb4, type: 2}
+  level5: {fileID: 2100000, guid: ea18b422ff164b045955d890af0c73fb, type: 2}
   initCreationTime: 2
   creationTime: 0
+  level2floor: 1
+  level3floor: 2
+  level4floor: 3
+  level5floor: 4
   floorsMeanDist: 5
   floorsHeightDist: 5
 --- !u!114 &445525488
