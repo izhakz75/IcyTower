@@ -178,7 +178,7 @@ public class Ball : MonoBehaviour {
 				ball.velocity += new Vector3(0, jumpSpeed*2, 0);
 			}
 			//Debug.Log (coll.collider.gameObject.transform.parent.GetComponent<Renderer>().material.name);
-			if (this.transform.position.y<= yPos+5 && this.transform.position.y> yPos) {
+			if (this.transform.position.y<= lastYpos+5 && this.transform.position.y> yPos) {
 					if (sequence > 0) {
 						addSequence (sequence);
 						yPos+= (int)(sequence - lastSequence)*5;
