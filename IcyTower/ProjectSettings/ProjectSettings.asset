@@ -638,9 +638,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: e7e5d78f-867a-4268-8f1a-0ae0413aada1
-  projectName: IcyTower (1)
-  organizationId: izhakz75
+  cloudProjectId: 0634bc1b-2932-4c07-b6f3-5bf66e6dd715
+  projectName: IcyTower
+  organizationId: adigolan
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

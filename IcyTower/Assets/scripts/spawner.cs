@@ -12,13 +12,14 @@ public class spawner : MonoBehaviour {
 	public Material level3;
 	public Material level4;
 	public Material level5;
+	public Material boost;
 	public float initCreationTime = 2f;
 	public float creationTime;
 	Vector3 tempPos, tempScale, lastTempPos = new Vector3(0,0,0);
-	public int level2floor = 1;
-	public int level3floor = 2;
-	public int level4floor = 3;
-	public int level5floor = 4;
+	public int level2floor = 5;
+	public int level3floor = 10;
+	public int level4floor = 15;
+	public int level5floor = 20;
 	[SerializeField] private float floorsMeanDist = 5f;
 	[SerializeField] private float floorsHeightDist = 5f;
 
@@ -47,7 +48,10 @@ public class spawner : MonoBehaviour {
 				spawnee.transform.localScale = new Vector3(Random.Range (7, 8),1,(Random.Range (7, 8))); 
 				spawnee.transform.GetComponent<Renderer> ().material = level5;
 			}
-
+			int rand = Random.Range (0, 6);
+			if (rand == 1) {
+				spawnee.transform.GetComponent<Renderer> ().material = boost;
+			}
 			GameObject text = new GameObject();
 			TextMesh t = text.AddComponent<TextMesh>();
 			string s = (i+1).ToString ();
@@ -59,7 +63,7 @@ public class spawner : MonoBehaviour {
 			//spawnee.transform.GetComponent<Renderer> ().material = level2;
 			Instantiate (spawnee, tempPos, spawnPos.rotation);
 			//Random coins
-			int rand = Random.Range (0, 3);
+			rand = Random.Range (0, 3);
 			if (rand == 1) {
 				Vector3 pos = tempPos + new Vector3 (0, 1, 0);
 				Instantiate (coin, pos, spawnPos.rotation);
